@@ -1,14 +1,164 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-full.svg"
-    >
+  <q-page>
+    <div class="q-pa-md q-gutter-sm">
+      <h4>{{ featureModel.name || "Not Found" }}</h4>
+      <div v-if="featureModel" class="row">
+        <div class="col-6">
+          <h6 class="q-mt-none q-mb-sm">Feature Tree</h6>
+          <q-tree
+            :nodes="featureTree"
+            node-key="name"
+            label-key="name"
+            :expanded.sync="expandedNodes"
+            class="feature-tree"
+          />
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12">
+              <h6 class="q-mt-none q-mb-sm">Subtitle</h6>
+              <q-list bordered separator>
+                <q-item v-ripple>
+                  <q-item-section avatar>
+                    <q-avatar rounded>
+                      <img src="~assets/m.png">
+                    </q-avatar>
+                  </q-item-section>
+                  <q-item-section>Mandatory Feature</q-item-section>
+                </q-item>
+                <q-item v-ripple>
+                  <q-item-section avatar>
+                    <q-avatar rounded>
+                      <img src="~assets/o.png">
+                    </q-avatar>
+                  </q-item-section>
+                  <q-item-section>Optional Feature</q-item-section>
+                </q-item>
+                <q-item v-ripple>
+                  <q-item-section avatar>
+                    <q-avatar rounded>
+                      <img src="~assets/or.png">
+                    </q-avatar>
+                  </q-item-section>
+                  <q-item-section>OR Group</q-item-section>
+                </q-item>
+                <q-item v-ripple>
+                  <q-item-section avatar>
+                    <q-avatar rounded>
+                      <img src="~assets/xor.png">
+                    </q-avatar>
+                  </q-item-section>
+                  <q-item-section>XOR Group</q-item-section>
+                </q-item>
+              </q-list>
+            </div>
+            <div class="col-12 q-mt-lg">
+              <h6 class="q-mt-none q-mb-sm">Measures</h6>
+              <q-table
+                :data="featureModelMeasures"
+                :columns="[
+                  { field: 'measureName', label: 'Measure Name' },
+                  { field: 'measureValue', label: 'Value' }
+                ]"
+                :pagination="{
+                  rowsPerPage: 15
+                }"
+                row-key="measureName"
+                hide-bottom
+              />
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+
 export default {
   name: 'PageIndex',
+
+  data() {
+    return {
+      expandedNodes: [],
+    };
+  },
+
+  computed: {
+    ...mapGetters('featureModel', ['featureModel', 'featureTree']),
+    ...mapGetters('measure', ['measure', 'measures']),
+
+    featureModelId() {
+      return parseInt(this.$route.params.id || 0, 10);
+    },
+
+    featureModelMeasures() {
+      return [
+        { measureName: 'Number-of-Features', measureValue: this.measure['Number-of-Features'] },
+        { measureName: 'Number-of-Mandatory-Features', measureValue: this.measure['Number-of-Mandatory-Features'] },
+        { measureName: 'Number-of-Top-Features', measureValue: this.measure['Number-of-Top-Features'] },
+        { measureName: 'Number-of-Leaf-Features', measureValue: this.measure['Number-of-Features'] },
+        { measureName: 'Depth-of-Tree-Max', measureValue: this.measure['Depth-of-Tree-Max'] },
+        { measureName: 'Cognitive-Complexity-of-Feature-Model', measureValue: this.measure['Cognitive-Complexity-of-Feature-Model'] },
+        { measureName: 'Feature-Extensibility', measureValue: this.measure['Feature-Extensibility'] },
+        { measureName: 'Flexibility-of-Configuration', measureValue: this.measure['Flexibility-of-Configuration'] },
+        { measureName: 'Single-Cylic-Dependent-Features', measureValue: this.measure['Single-Cylic-Dependent-Features'] },
+        { measureName: 'Multiple-Cyclic-Dependent-Features', measureValue: this.measure['Multiple-Cyclic-Dependent-Features'] },
+        { measureName: 'Number-of-Features-Referenced-in-Constraints-Mean', measureValue: this.measure['Number-of-Features-Referenced-in-Constraints-Mean'] },
+        { measureName: 'Ratio-of-Variability', measureValue: this.measure['Ratio-of-Variability'] },
+        { measureName: 'Number-of-Valid-Configurations', measureValue: this.measure['Number-of-Valid-Configurations'] },
+        { measureName: 'Number-of-Groups-OR', measureValue: this.measure['Number-of-Groups-OR'] },
+        { measureName: 'Number-of-Groups-XOR', measureValue: this.measure['Number-of-Groups-XOR'] },
+      ];
+    },
+  },
+
+  watch: {
+    featureModelId() {
+      this.loadFeatureModel();
+    },
+  },
+
+  created() {
+    this.fetchFeatureModels();
+    this.fetchMeasures();
+    this.loadFeatureModel();
+  },
+
+  methods: {
+    ...mapActions('featureModel', ['fetchFeatureModels', 'fetchFeatureModelById']),
+    ...mapActions('measure', ['fetchMeasures', 'fetchMeasureById']),
+
+    loadFeatureModel() {
+      this.fetchFeatureModelById(this.featureModelId);
+      this.fetchMeasureById(this.featureModelId);
+
+      this.expandedNodes = this.getTreeNodeLabels(this.featureTree);
+    },
+
+    getTreeNodeLabels(tree) {
+      let labels = [];
+
+      for (let i = 0; i < tree.length; i += 1) {
+        const el = tree[i];
+
+        labels.push(el.name);
+        labels = [...labels, ...this.getTreeNodeLabels(el.children)];
+      }
+
+      return labels;
+    },
+  },
 };
 </script>
+
+<style lang="stylus" scoped>
+.feature-tree {
+  >>>.q-tree__img {
+    height: 16px;
+  }
+}
+</style>
