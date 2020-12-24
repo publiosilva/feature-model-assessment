@@ -3,7 +3,7 @@
     <div class="q-pa-md q-gutter-sm">
       <h4>{{ featureModel.name || "Not Found" }}</h4>
       <div v-if="featureModel" class="row">
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <h6 class="q-mt-none q-mb-sm">Feature Tree</h6>
           <q-tree
             :nodes="featureTree"
@@ -13,7 +13,7 @@
             class="feature-tree"
           />
         </div>
-        <div class="col-6">
+        <div class="col-12 col-md-6">
           <div class="row">
             <div class="col-12">
               <h6 class="q-mt-none q-mb-sm">Constraints</h6>
@@ -39,7 +39,7 @@
               />
             </div>
             <div class="col-12">
-              <h6 class="q-mt-none q-mb-sm">Subtitle</h6>
+              <h6 class="q-my-sm">Subtitle</h6>
               <q-list bordered separator>
                 <q-item v-ripple>
                   <q-item-section avatar>
