@@ -16,6 +16,29 @@
         <div class="col-6">
           <div class="row">
             <div class="col-12">
+              <h6 class="q-mt-none q-mb-sm">Constraints</h6>
+              <q-list bordered separator>
+                <q-item v-ripple v-for="(item, index) in featureModel.constraints" :key="index">
+                  <q-item-section>{{ item.value }}</q-item-section>
+                </q-item>
+              </q-list>
+            </div>
+            <div class="col-12 q-mt-lg">
+              <h6 class="q-mt-none q-mb-sm">Measures</h6>
+              <q-table
+                :data="featureModelMeasures"
+                :columns="[
+                  { field: 'measureName', label: 'Measure Name' },
+                  { field: 'measureValue', label: 'Value' }
+                ]"
+                :pagination="{
+                  rowsPerPage: 15
+                }"
+                row-key="measureName"
+                hide-bottom
+              />
+            </div>
+            <div class="col-12">
               <h6 class="q-mt-none q-mb-sm">Subtitle</h6>
               <q-list bordered separator>
                 <q-item v-ripple>
@@ -52,21 +75,6 @@
                 </q-item>
               </q-list>
             </div>
-            <div class="col-12 q-mt-lg">
-              <h6 class="q-mt-none q-mb-sm">Measures</h6>
-              <q-table
-                :data="featureModelMeasures"
-                :columns="[
-                  { field: 'measureName', label: 'Measure Name' },
-                  { field: 'measureValue', label: 'Value' }
-                ]"
-                :pagination="{
-                  rowsPerPage: 15
-                }"
-                row-key="measureName"
-                hide-bottom
-              />
-            </div>
           </div>
 
         </div>
@@ -97,21 +105,21 @@ export default {
 
     featureModelMeasures() {
       return [
-        { measureName: 'Number-of-Features', measureValue: this.measure['Number-of-Features'] },
-        { measureName: 'Number-of-Mandatory-Features', measureValue: this.measure['Number-of-Mandatory-Features'] },
-        { measureName: 'Number-of-Top-Features', measureValue: this.measure['Number-of-Top-Features'] },
-        { measureName: 'Number-of-Leaf-Features', measureValue: this.measure['Number-of-Features'] },
-        { measureName: 'Depth-of-Tree-Max', measureValue: this.measure['Depth-of-Tree-Max'] },
-        { measureName: 'Cognitive-Complexity-of-Feature-Model', measureValue: this.measure['Cognitive-Complexity-of-Feature-Model'] },
-        { measureName: 'Feature-Extensibility', measureValue: this.measure['Feature-Extensibility'] },
-        { measureName: 'Flexibility-of-Configuration', measureValue: this.measure['Flexibility-of-Configuration'] },
-        { measureName: 'Single-Cylic-Dependent-Features', measureValue: this.measure['Single-Cylic-Dependent-Features'] },
-        { measureName: 'Multiple-Cyclic-Dependent-Features', measureValue: this.measure['Multiple-Cyclic-Dependent-Features'] },
-        { measureName: 'Number-of-Features-Referenced-in-Constraints-Mean', measureValue: this.measure['Number-of-Features-Referenced-in-Constraints-Mean'] },
-        { measureName: 'Ratio-of-Variability', measureValue: this.measure['Ratio-of-Variability'] },
-        { measureName: 'Number-of-Valid-Configurations', measureValue: this.measure['Number-of-Valid-Configurations'] },
-        { measureName: 'Number-of-Groups-OR', measureValue: this.measure['Number-of-Groups-OR'] },
-        { measureName: 'Number-of-Groups-XOR', measureValue: this.measure['Number-of-Groups-XOR'] },
+        { measureName: 'Number-of-Features ⇓', measureValue: this.measure['Number-of-Features'] },
+        { measureName: 'Number-of-Mandatory-Features ⇓', measureValue: this.measure['Number-of-Mandatory-Features'] },
+        { measureName: 'Number-of-Top-Features ⇓', measureValue: this.measure['Number-of-Top-Features'] },
+        { measureName: 'Number-of-Leaf-Features ⇓', measureValue: this.measure['Number-of-Features'] },
+        { measureName: 'Depth-of-Tree-Max ⇓', measureValue: this.measure['Depth-of-Tree-Max'] },
+        { measureName: 'Cognitive-Complexity-of-Feature-Model ⇓', measureValue: this.measure['Cognitive-Complexity-of-Feature-Model'] },
+        { measureName: 'Feature-Extensibility ⇑', measureValue: this.measure['Feature-Extensibility'] },
+        { measureName: 'Flexibility-of-Configuration ⇑', measureValue: this.measure['Flexibility-of-Configuration'] },
+        { measureName: 'Single-Cylic-Dependent-Features ⇓', measureValue: this.measure['Single-Cylic-Dependent-Features'] },
+        { measureName: 'Multiple-Cyclic-Dependent-Features ⇓', measureValue: this.measure['Multiple-Cyclic-Dependent-Features'] },
+        { measureName: 'Number-of-Features-Referenced-in-Constraints-Mean ⇓', measureValue: this.measure['Number-of-Features-Referenced-in-Constraints-Mean'] },
+        { measureName: 'Ratio-of-Variability ⇓', measureValue: this.measure['Ratio-of-Variability'] },
+        { measureName: 'Number-of-Valid-Configurations ⇓', measureValue: this.measure['Number-of-Valid-Configurations'] },
+        { measureName: 'Number-of-Groups-OR ⇓', measureValue: this.measure['Number-of-Groups-OR'] },
+        { measureName: 'Number-of-Groups-XOR ⇓', measureValue: this.measure['Number-of-Groups-XOR'] },
       ];
     },
   },

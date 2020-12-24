@@ -19,11 +19,12 @@ function getNodeIcon(node) {
   return undefined;
 }
 
-function setNodeIcon(node) {
+function formatData(node) {
   return {
     ...node,
+    name: `[${node.id}] ${node.name}`,
     img: getNodeIcon(node),
-    children: node.children.map((item) => setNodeIcon(item)),
+    children: node.children.map((item) => formatData(item)),
   };
 }
 
@@ -38,5 +39,5 @@ export function featureModel(state) {
 export function featureTree(state) {
   const [root] = state.featureModel.featureTree;
 
-  return [setNodeIcon(root)];
+  return [formatData(root)];
 }
