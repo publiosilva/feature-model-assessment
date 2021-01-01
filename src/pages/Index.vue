@@ -26,9 +26,21 @@
             <div class="col-12 q-mt-lg">
               <h6 class="q-mt-none q-mb-sm">Measures</h6>
               <q-table
-                :data="featureModelMeasures"
+                :data="featureModelMeasuresDown"
                 :columns="[
-                  { field: 'measureName', label: 'Measure Name' },
+                  { field: 'measureName', label: 'Measure Name',  style:'width: 375px' },
+                  { field: 'measureValue', label: 'Value' },
+                ]"
+                :pagination="{
+                  rowsPerPage: 15
+                }"
+                row-key="measureName"
+                hide-bottom
+              />
+              <q-table
+                :data="featureModelMeasuresUp"
+                :columns="[
+                  { field: 'measureName', label: 'Measure Name', style:'width: 375px' },
                   { field: 'measureValue', label: 'Value' }
                 ]"
                 :pagination="{
@@ -36,6 +48,8 @@
                 }"
                 row-key="measureName"
                 hide-bottom
+                hide-header
+                class="q-mt-sm"
               />
             </div>
             <div class="col-12">
@@ -103,7 +117,7 @@ export default {
       return parseInt(this.$route.params.id || 0, 10);
     },
 
-    featureModelMeasures() {
+    featureModelMeasuresDown() {
       return [
         { measureName: 'Number-of-Features ⇓', measureValue: this.measure['Number-of-Features'] },
         { measureName: 'Number-of-Mandatory-Features ⇓', measureValue: this.measure['Number-of-Mandatory-Features'] },
@@ -111,8 +125,6 @@ export default {
         { measureName: 'Number-of-Leaf-Features ⇓', measureValue: this.measure['Number-of-Features'] },
         { measureName: 'Depth-of-Tree-Max ⇓', measureValue: this.measure['Depth-of-Tree-Max'] },
         { measureName: 'Cognitive-Complexity-of-Feature-Model ⇓', measureValue: this.measure['Cognitive-Complexity-of-Feature-Model'] },
-        { measureName: 'Feature-Extensibility ⇑', measureValue: this.measure['Feature-Extensibility'] },
-        { measureName: 'Flexibility-of-Configuration ⇑', measureValue: this.measure['Flexibility-of-Configuration'] },
         { measureName: 'Single-Cylic-Dependent-Features ⇓', measureValue: this.measure['Single-Cylic-Dependent-Features'] },
         { measureName: 'Multiple-Cyclic-Dependent-Features ⇓', measureValue: this.measure['Multiple-Cyclic-Dependent-Features'] },
         { measureName: 'Number-of-Features-Referenced-in-Constraints-Mean ⇓', measureValue: this.measure['Number-of-Features-Referenced-in-Constraints-Mean'] },
@@ -120,6 +132,13 @@ export default {
         { measureName: 'Number-of-Valid-Configurations ⇓', measureValue: this.measure['Number-of-Valid-Configurations'] },
         { measureName: 'Number-of-Groups-OR ⇓', measureValue: this.measure['Number-of-Groups-OR'] },
         { measureName: 'Number-of-Groups-XOR ⇓', measureValue: this.measure['Number-of-Groups-XOR'] },
+      ];
+    },
+
+    featureModelMeasuresUp() {
+      return [
+        { measureName: 'Feature-Extensibility ⇑', measureValue: this.measure['Feature-Extensibility'] },
+        { measureName: 'Flexibility-of-Configuration ⇑', measureValue: this.measure['Flexibility-of-Configuration'] },
       ];
     },
   },
@@ -167,6 +186,12 @@ export default {
 .feature-tree {
   >>>.q-tree__img {
     height: 16px;
+  }
+}
+
+>>>.q-table {
+  td {
+    font-size: 14px;
   }
 }
 </style>
