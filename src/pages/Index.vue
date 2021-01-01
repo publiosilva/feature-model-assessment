@@ -24,7 +24,13 @@
               </q-list>
             </div>
             <div class="col-12 q-mt-lg">
-              <h6 class="q-mt-none q-mb-sm">Measures</h6>
+              <router-link :to="{ name: 'measures' }">
+                <h6
+                  class="q-mt-none q-mb-sm"
+                >
+                  Measures <q-icon name="link" />
+                </h6>
+              </router-link>
               <q-table
                 :data="featureModelMeasuresDown"
                 :columns="[
@@ -187,6 +193,10 @@ export default {
   >>>.q-tree__img {
     height: 16px;
   }
+}
+
+a {
+  text-decoration: none;
 }
 
 >>>.q-table {
