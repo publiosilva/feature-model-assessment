@@ -2,7 +2,7 @@
   "name": "feature-model-assessment",
   "version": "0.0.1",
   "description": "A Quasar Framework app",
-  "productName": "Quasar App",
+  "productName": "Feature Model Assessment",
   "author": "Publio Blenilio <publio.blenilio@gmail.com>",
   "private": true,
   "scripts": {
