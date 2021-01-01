@@ -2,6 +2,8 @@
 
 A Quasar Framework app
 
+https://publiosilva.github.io/feature-model-assessment/
+
 ## Install the dependencies
 ```bash
 yarn
