@@ -59,7 +59,7 @@
               />
             </div>
             <div class="col-12">
-              <h6 class="q-my-sm">Subtitle</h6>
+              <h6 class="q-my-sm">Legend</h6>
               <q-list bordered separator>
                 <q-item v-ripple>
                   <q-item-section avatar>
