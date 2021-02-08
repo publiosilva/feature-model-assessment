@@ -128,7 +128,7 @@ export default {
         { measureName: 'Number-of-Features ⇓', measureValue: this.measure['Number-of-Features'] },
         { measureName: 'Number-of-Mandatory-Features ⇓', measureValue: this.measure['Number-of-Mandatory-Features'] },
         { measureName: 'Number-of-Top-Features ⇓', measureValue: this.measure['Number-of-Top-Features'] },
-        { measureName: 'Number-of-Leaf-Features ⇓', measureValue: this.measure['Number-of-Features'] },
+        { measureName: 'Number-of-Leaf-Features ⇓', measureValue: this.measure['Number-of-Leaf-Features'] },
         { measureName: 'Depth-of-Tree-Max ⇓', measureValue: this.measure['Depth-of-Tree-Max'] },
         { measureName: 'Cognitive-Complexity-of-Feature-Model ⇓', measureValue: this.measure['Cognitive-Complexity-of-Feature-Model'] },
         { measureName: 'Single-Cylic-Dependent-Features ⇓', measureValue: this.measure['Single-Cylic-Dependent-Features'] },
